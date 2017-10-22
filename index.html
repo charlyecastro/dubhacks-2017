@@ -1,145 +1,85 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-<title>Chat Bot</title>
-<meta charset="utf-8"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script>
-    var ws = new WebSocket("ws://localhost:8080");
-
-    // Close socket when window closes
-    $(window).on('beforeunload', function(){
-       ws.close();
-    });
-
-    ws.onerror = function(event) {
-        location.reload();
-    }
-
-    ws.onmessage = function(event)  { 
-        var message_received = event.data;
-        chat_add_message(message_received, false);
-    };
-
-    // Add a message to the chat history
-    function chat_add_message(message, isUser) {
-        var class_suffix = isUser ? '_user' : '';
-
-        var html = '\
-        <div class="chat_line">\
-            <div class="chat_bubble'+class_suffix+'">\
-              <div class="chat_triangle'+class_suffix+'"></div>\
-                '+message+'\
-            </div>\
-        </div>\
-        ';
-        chat_add_html(html);
-    }
-
-    // Add HTML to the chat history
-    function chat_add_html(html) {
-        $("#chat_log").append(html);
-        chat_scrolldown();
-    }
-
-    // Scrolls the chat history to the bottom
-    function chat_scrolldown() {
-        $("#chat_log").animate({ scrollTop: $("#chat_log")[0].scrollHeight }, 500);
-    }
-
-    // If press ENTER, talk to chat and send message to server
-    $(function() {
-       $('#chat_input').on('keypress', function(event) {
-          if (event.which === 13 && $(this).val() != ""){
-             var message = $(this).val();
-             $(this).val("");
-             chat_add_message(message, true);
-             ws.send(message);
-          }
-       });
-    });
-</script>
-<style>
-    * {
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-    }
-    body {
-        font-family: Helvetica;
-    }
-    #chat_container {
-        overflow: hidden;
-        border-radius: 15px;
-        border: 1px solid black;
-        margin: 40px 80px 0px 80px;
-    }
-    #chat_log {
-        background-color: #718392;
-        padding: 10px;
-        border-bottom: 1px solid black;
-        overflow-y: scroll;
-        height: 300px;
-        font-size: 26px;
-    }
-    #chat_input_container {
-        padding: 10px;
-    }
-    #chat_input {
-        padding: 2px;
-        font-size: 18px;
-        width: 100%;
-    }
-
-    .chat_line {
-        overflow: hidden;
-        width: 100%;
-        margin: 2px 0 12px 0;
-    }
-    .chat_triangle, .chat_triangle_user {
-        position: absolute;
-        top: 0;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        left: -18px;
-        border-width: 0 18px 13px 0;
-        border-color: transparent #ffffff transparent transparent;
-    }
-    .chat_triangle_user {
-        left: auto;
-        right: -18px;
-        border-width: 13px 18px 0 0;
-        border-color: #234b9b transparent transparent transparent;
-    }
-    .chat_bubble, .chat_bubble_user {
-        position: relative;
-        float: left;
-        background-color: #FFF;
-        margin-top: 10px;
-        line-height: 35px;
-        padding: 10px 25px 10px 25px;
-        margin-left: 20px;
-        font-size: 27px;
-    }
-    .chat_bubble_user {
-        float: right;
-        margin-left: 0px;
-        margin-right: 20px;
-        background-color: #234b9b;
-        color: #FFF;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Birds and The Bees</title>
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway:200,400" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 
 <body>
-<div id="chat_container">
-    <div id="chat_log">
-    </div>
-    <div id="chat_input_container">
-        <div><input id="chat_input" /></div>
-    </div>
-</div>
+    <header>
+        <div class="container">
+            <a href="/">
+                <h1 class="row justify-content-center">
+                    Birds and&nbsp;
+                    <span class="bees">The Bees</span>
+                </h1>
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="container" id="search">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="input-group justify-content-center">
+                        <input type="text" name="Question" id="question" class="form-control col-11" placeholder="Question or Chat" aria-label="Question or Chat"
+                            onkeydown="if (event.keyCode == 13) document.getElementById('send').click()">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="button" id="send">▷</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center suggestions">
+                <div class="col-11 suggestion">What is sex?</div>
+                <div class="col-11 suggestion">What is gender?</div>
+                <div class="col-11 suggestion">What is orientation?</div>
+            </div>
+        </div>
+        <div class="container d-none" id="article">
+            <h1>If You’re Asking, ‘Am I Gay? Lesbian? Bi? Trans? Queer?’ Here’s a Start</h1>
+            <p class="byLine">By
+                <span id="authorName">MAYA SALAM</span>
+            </p>
+            <p class="articleBody">
+                Maybe the questions bubbled up over time. Maybe the realization hit you suddenly. Am I gay? Everyone calls me a girl, but
+                I don’t feel like one. Why do I feel different from the people I’m around? Those feelings can be the beginning
+                of a journey of self-discovery that can be rewarding, but also extremely daunting.
+                <br />
+                <br /> ‘You are not alone.’
+                <br />
+                <br /> If this is what you’re going through, take a breath and remember that there are plenty of people and resources
+                to help and support you. Even if facing discrimination is not a concern for you, the anxiety and isolation
+                you may feel privately can be all too real.
+                <br />
+                <br /> “You are not alone,” said iO Tillett Wright, a speaker whose TedxWomen talk, “Fifty Shades of Gay,” has
+                more than 2.5 million views. “It’s comical how not alone you are.”
+                <br />
+                <br /> While it is not possible to get an exact figure on the population of lesbian, gay, bisexual and transgender
+                Americans, a 2015 report by the Public Religion Research Institute suggests that “7 percent of millennials
+                identify either as lesbian, gay, bisexual or transgender.” A January 2017 Gallup survey revealed that an
+                estimated 4.1 percent of Americans identify as lesbian, gay, bisexual or transgender, up from 3.5 percent
+                in 2012.
+                <br />
+                <br /> According to a paper published by the National Bureau of Economic Research, even those numbers may be underestimated
+                — as are the challenges that people in this community face.
+            </p>
+            <cite>Salam, M. (2017, May 17). If You’re Asking, ‘Am I Gay? Lesbian? Bi? Trans? Queer?’ Here’s a Start. Retrieved
+                October 22, 2017, from
+                <a href="http://www.nytimes.com/2017/05/17/smarter-living/gay-lesbian-bisexual-transgender.html">http://www.nytimes.com/2017/05/17/smarter-living/gay-lesbian-bisexual-transgender.html</a>
+            </cite>
+        </div>
+        <div class="container" id="chat">
 
+        </div>
+    </main>
 </body>
+<script src="js/index.js"></script>
+
 </html>
