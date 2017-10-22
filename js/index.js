@@ -15,15 +15,9 @@ ws.onerror = function(event) {
     //location.reload();
 }
 
-ws.onmessage = function(event)  {
-    if(IsJsonString(event.data)) {
-        let message_received = JSON.parse(event.data);
-        console.log(message_received);
-        state.suggestions.push(Object.keys(message_received));
-        render(state);   
-    } else {
-        addBotMessage(event.data)
-    }
+ws.onmessage = function(event)  { 
+    addBotMessage(message_received);
+    render(state)
 };
 
 function IsJsonString(str) {
@@ -65,8 +59,8 @@ function render(state) {
 
     if (state.mode == "search") {
         for (let i = 0; i < state.suggestions.length; i++) {
-            console.log(state.suggestions[i][0]);
-            suggestionsBox.appendChild(createElem("div", state.suggestions[i][0], "col-11 suggestion"));
+            console.log(state.suggestions[i]);
+            suggestionsBox.appendChild(createElem("div", state.suggestions[i], "col-11 suggestion"));
         }
     
         let suggestionDivs = document.querySelectorAll(".suggestion");
@@ -93,15 +87,17 @@ render(state);
 QUESTION_INPUT.addEventListener("input", function() {
     state.question = QUESTION_INPUT.value.trim().toLocaleLowerCase();
     ws.send(state.question);
+    state.suggestions = ["Am I Gay?", "Am I Normal?", "Am I Beautiful?"];
+    render(state);
 })
 
 SEND_BUTTON.addEventListener("click", function() {
     if(QUESTION_INPUT.value) {
         if(state.mode !== "chat") {
             state.mode = "chat";
-            ws.send(999);
         }
         state.messages.push({from: "user", message: QUESTION_INPUT.value.trim()});
+        ws.send(QUESTION_INPUT.value);
         QUESTION_INPUT.value = "";
         render(state);
     }
