@@ -61,11 +61,14 @@ def generateReply(message):
     print(sentiment)
 
     if sentiment <= 0.2:
-        return random.choice(depressed_response)
+        return random.choice(depressed_responses)
+
     elif sentiment <= 0.5:
         return random.choice(sad_responses)
+
     elif sentiment <= 0.8:
         return random.choice(happy_responses)
+
     else:
         return random.choice(ecstatic_responses)
 
