@@ -1,5 +1,6 @@
 from linguistic import getPOS
 from sentiment import getSentiment
+from keyphrases import getPhrases
 import random
 
 greetings = [ "hi", "hello", "hey", "yo", "greetings" ]
@@ -25,6 +26,8 @@ def findYouAreJJ(pos):
 def generateReply(message):
     pos = getPOS(message)
     sentiment = getSentiment(message)
+    phrase = getPhrases(message)
+
 
     # If error occurred getting POS
     if not pos:
@@ -33,6 +36,11 @@ def generateReply(message):
     # If user greeted
     if pos[0][0].lower() in greetings:
         return random.choice(greetings_responses)
+
+    if phrase is not None:
+        return phrase
+    else:
+        return sentiment
 
     # If user said 'You are ... {adjective} ...'
     youAreJJ = findYouAreJJ(pos)   
