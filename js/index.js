@@ -17,6 +17,7 @@ ws.onerror = function(event) {
 
 ws.onmessage = function(event)  { 
     addBotMessage(event.data);
+    state.messages.push({from: "bot", message: event.data.trim()});
     render(state);
 };
 

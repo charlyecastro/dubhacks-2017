@@ -5,7 +5,10 @@ import random
 
 greetings = [ "hi", "hello", "hey", "yo", "greetings" ]
 greetings_responses = [ "Hi there." , "Greetings human.", "Hello there.", "Hey." ]
-depressed_responses = [ "Do you wanna talk more about that?", "You're gonna be okay"]
+depressed_responses = [ "Do you wanna talk more about that?", "You're gonna be okay", "It's all gonna work out", "I'd love to talk more about that", "I'm here to help you", "It's always darkest before the dawn", "I believe you're capable of anything", "Just keep swimming"]
+sad_responses = [ "How can I help?", "What were you looking for?", "Is something upsetting you?", "Why do you think you feel this way?", "You'll be fiiiine", "There's an app for that", "You can always talk to me about it", "Hakuna Matata"]
+happy_responses = [ "That's great!", "So, how can I help?", "I'm happy to hear that, anthing I can help with?", "Excellent!", "Fantastic! So how can I help you?", "This is why I do what I do!", ":D"]
+ecstatic_responses = [ "I love your spirit!", "I'm happy you're happy!", "Wow! You've really got it figured out", "Marvelous!!", "Your excitement's rubbing off on me!", "You sound overjoyed!!", "YAAAAAASSSSS QUEEEN"]
 
 
 # Returns JJ if sentence structure is You Are {word}+ JJ {word}+.
@@ -55,10 +58,16 @@ def generateReply(message):
         else:
             return "Don't be mean on yourself. I'm sure you're not really "+IAmJJ+"!"
 
+    print(sentiment)
+
     if sentiment <= 0.2:
-        return ""
+        return random.choice(depressed_response)
+    elif sentiment <= 0.5:
+        return random.choice(sad_responses)
+    elif sentiment <= 0.8:
+        return random.choice(happy_responses)
     else:
-        return "I feel sad about that."
+        return random.choice(ecstatic_responses)
 
 
 # Returns JJ if sentence structure is I Am {word}+ JJ {word}+.

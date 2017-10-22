@@ -11,8 +11,6 @@ class ChatServer(WebSocket):
     def handleMessage(self):
         # echo message back to client
         message = self.data
-        param = create_tag_freq_table(getPhrases(message))
-        self.sendMessage(json.dumps(param))
         response = generateReply(message)
         self.sendMessage(response)
 
