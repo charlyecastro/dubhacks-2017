@@ -32,7 +32,7 @@ let state = {
     question: "",
     messages: [],
     mode: "search",
-    suggestions: []
+    suggestions: {}
 };
 
 function createElem(name, value, className) {
@@ -55,7 +55,8 @@ function render(state) {
 
     if (state.mode == "search") {
         for (let i = 0; i < state.suggestions.length; i++) {
-            suggestionsBox.appendChild(createElem("div", state.suggestions[i], "col-11 suggestion"));
+            console.log(state.suggestions[i][0]);
+            suggestionsBox.appendChild(createElem("div", state.suggestions[i][0], "col-11 suggestion"));
         }
     
         let suggestionDivs = document.querySelectorAll(".suggestion");
