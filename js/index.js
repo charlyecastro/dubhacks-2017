@@ -16,7 +16,7 @@ ws.onerror = function(event) {
 }
 
 ws.onmessage = function(event)  { 
-    let message_received = JSON.parse(event.data);
+    let message_received = JSON.parse(event.data.replace("'", '"'));
     if (typeof message_received === 'object') {
         state.suggestions = message_received;
         render(status);
