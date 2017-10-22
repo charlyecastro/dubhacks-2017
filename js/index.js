@@ -4,7 +4,7 @@ const SEARCH_INTERFACE = /** @type {HTMLButtonElement} */(document.querySelector
 const ARTICLE_INTERFACE = /** @type {HTMLButtonElement} */(document.querySelector("#article"));
 const CHAT_INTERFACE = /** @type {HTMLButtonElement} */(document.querySelector("#chat"));
 
-let ws = new WebSocket("ws://localhost:8000");
+let ws = new WebSocket("ws://localhost:8080");
 
 // Close socket when window closes
 $(window).on('beforeunload', function(){
