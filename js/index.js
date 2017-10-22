@@ -15,6 +15,7 @@ ws.onerror = function(event) {
     //location.reload();
 }
 
+<<<<<<< HEAD
 ws.onmessage = function(event)  {
     if(IsJsonString(event.data)) {
         let message_received = JSON.parse(event.data);
@@ -24,6 +25,11 @@ ws.onmessage = function(event)  {
     } else {
         addBotMessage(event.data)
     }
+=======
+ws.onmessage = function(event)  { 
+    addBotMessage(message_received);
+    render(state)
+>>>>>>> Began finalizing presentation code
 };
 
 function IsJsonString(str) {
@@ -65,8 +71,8 @@ function render(state) {
 
     if (state.mode == "search") {
         for (let i = 0; i < state.suggestions.length; i++) {
-            console.log(state.suggestions[i][0]);
-            suggestionsBox.appendChild(createElem("div", state.suggestions[i][0], "col-11 suggestion"));
+            console.log(state.suggestions[i]);
+            suggestionsBox.appendChild(createElem("div", state.suggestions[i], "col-11 suggestion"));
         }
     
         let suggestionDivs = document.querySelectorAll(".suggestion");
@@ -93,6 +99,8 @@ render(state);
 QUESTION_INPUT.addEventListener("input", function() {
     state.question = QUESTION_INPUT.value.trim().toLocaleLowerCase();
     ws.send(state.question);
+    state.suggestions = ["Am I Gay?", "Am I Normal?", "Am I Beautiful?"];
+    render(state);
 })
 
 SEND_BUTTON.addEventListener("click", function() {
