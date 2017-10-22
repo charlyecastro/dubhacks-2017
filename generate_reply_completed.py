@@ -5,6 +5,7 @@ import random
 
 greetings = [ "hi", "hello", "hey", "yo", "greetings" ]
 greetings_responses = [ "Hi there." , "Greetings human.", "Hello there.", "Hey." ]
+depressed_responses = [ "Do you wanna talk more about that?"]
 
 
 # Returns JJ if sentence structure is You Are {word}+ JJ {word}+.
@@ -54,8 +55,8 @@ def generateReply(message):
         else:
             return "Don't be mean on yourself. I'm sure you're not really "+IAmJJ+"!"
 
-    if sentiment >= 0.5:
-        return "I'm happy to hear that!"
+    if sentiment <= 0.2:
+        return ""
     else:
         return "I feel sad about that."
 
