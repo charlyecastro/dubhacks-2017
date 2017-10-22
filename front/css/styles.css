@@ -3,8 +3,14 @@
 }
 
 body {
-  background-color: #edeff2;
-  font-family: "Calibri", "Roboto", sans-serif;
+  background-color: #f6f8fa;
+  font-family:  'Open Sans', sans-serif;
+}
+
+
+h2{
+  font-size: 30px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .chat_window {
@@ -63,7 +69,7 @@ body {
   opacity: 0;
 }
 .messages .message.left .avatar {
-  background-color: #f5886e;
+  background-color: #F4B505;
   float: left;
 }
 .messages .message.left .text_wrapper {
@@ -78,20 +84,20 @@ body {
   color: #c48843;
 }
 .messages .message.right .avatar {
-  background-color: #fdbf68;
+  background-color: #F09E03;
   float: right;
 }
 .messages .message.right .text_wrapper {
-  background-color: #c7eafc;
+  background-color: #F4D08D;
   margin-right: 20px;
   float: right;
 }
 .messages .message.right .text_wrapper::after, .messages .message.right .text_wrapper::before {
   left: 100%;
-  border-left-color: #c7eafc;
+  border-left-color: #F4D08D;
 }
 .messages .message.right .text {
-  color: #45829b;
+  color: #c48843;
 }
 .messages .message.appeared {
   opacity: 1;
@@ -163,8 +169,8 @@ body {
   height: 50px;
   display: inline-block;
   border-radius: 50px;
-  background-color: #a3d063;
-  border: 2px solid #a3d063;
+  background-color: #F5CB05;
+  border: 2px solid #F5CB05;
   color: #fff;
   cursor: pointer;
   transition: all 0.2s linear;
