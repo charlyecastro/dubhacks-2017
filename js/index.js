@@ -12,13 +12,14 @@ $(window).on('beforeunload', function(){
 });
 
 ws.onerror = function(event) {
-    location.reload();
+    //location.reload();
 }
 
 ws.onmessage = function(event)  { 
-    let message_received = event.data;
+    let message_received = JSON.parse(event.data);
     if (typeof message_received === 'object') {
-
+        state.suggestions = message_received;
+        render(status);
     } else {
         addBotMessage(message_received);
     }
@@ -79,11 +80,8 @@ function render(state) {
 render(state);
 
 QUESTION_INPUT.addEventListener("input", function() {
-    let q = QUESTION_INPUT.value.trim().toLocaleLowerCase();
-    
-    state.question = q;
-    state.suggestions = q? ["What is sex?", "What is gender?", "What is orientation?"] : [];
-    render(state);
+    state.question = QUESTION_INPUT.value.trim().toLocaleLowerCase();
+    ws.send(state.question);
 })
 
 SEND_BUTTON.addEventListener("click", function() {
