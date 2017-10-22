@@ -40,15 +40,7 @@ body {
   margin-right: 10px;
   position: relative;
 }
-.top_menu .buttons .button.close {
-  background-color: #f5886e;
-}
-.top_menu .buttons .button.minimize {
-  background-color: #fdbf68;
-}
-.top_menu .buttons .button.maximize {
-  background-color: #a3d063;
-}
+
 .top_menu .title {
   text-align: center;
   color: #bcbdc0;
