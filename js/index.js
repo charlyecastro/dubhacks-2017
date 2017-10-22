@@ -15,21 +15,9 @@ ws.onerror = function(event) {
     //location.reload();
 }
 
-<<<<<<< HEAD
-ws.onmessage = function(event)  {
-    if(IsJsonString(event.data)) {
-        let message_received = JSON.parse(event.data);
-        console.log(message_received);
-        state.suggestions.push(Object.keys(message_received));
-        render(state);   
-    } else {
-        addBotMessage(event.data)
-    }
-=======
 ws.onmessage = function(event)  { 
     addBotMessage(message_received);
     render(state)
->>>>>>> Began finalizing presentation code
 };
 
 function IsJsonString(str) {
@@ -107,9 +95,9 @@ SEND_BUTTON.addEventListener("click", function() {
     if(QUESTION_INPUT.value) {
         if(state.mode !== "chat") {
             state.mode = "chat";
-            ws.send(999);
         }
         state.messages.push({from: "user", message: QUESTION_INPUT.value.trim()});
+        ws.send(QUESTION_INPUT.value);
         QUESTION_INPUT.value = "";
         render(state);
     }
