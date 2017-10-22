@@ -1,0 +1,3 @@
+a = {"a": 30, "b" : 40}
+
+print(typeof(str(a)))
