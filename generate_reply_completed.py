@@ -5,7 +5,7 @@ import random
 
 greetings = [ "hi", "hello", "hey", "yo", "greetings" ]
 greetings_responses = [ "Hi there." , "Greetings human.", "Hello there.", "Hey." ]
-depressed_responses = [ "Do you wanna talk more about that?"]
+depressed_responses = [ "Do you wanna talk more about that?", "You're gonna be okay"]
 
 
 # Returns JJ if sentence structure is You Are {word}+ JJ {word}+.
