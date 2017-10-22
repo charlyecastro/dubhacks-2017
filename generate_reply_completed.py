@@ -6,6 +6,10 @@ import random
 greetings = [ "hi", "hello", "hey", "yo", "greetings" ]
 greetings_responses = [ "Hi there." , "Greetings human.", "Hello there.", "Hey." ]
 
+def weChat:
+    if 
+        return True
+
 # Returns JJ if sentence structure is You Are {word}+ JJ {word}+.
 def findYouAreJJ(pos):
     foundYou = False
@@ -36,11 +40,6 @@ def generateReply(message):
     # If user greeted
     if pos[0][0].lower() in greetings:
         return random.choice(greetings_responses)
-
-    if phrase is not None:
-        return phrase
-    else:
-        return sentiment
 
     # If user said 'You are ... {adjective} ...'
     youAreJJ = findYouAreJJ(pos)   

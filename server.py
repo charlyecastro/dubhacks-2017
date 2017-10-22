@@ -1,5 +1,9 @@
 from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 from generate_reply_completed import generateReply
+from tag_data import create_tag_freq_table
+from keyphrases import keyPhrases
+
+global weChat = False
 
 # Simple WebSocket for single-user chat bot
 class ChatServer(WebSocket):
@@ -7,8 +11,13 @@ class ChatServer(WebSocket):
     def handleMessage(self):
         # echo message back to client
         message = self.data
-        response = generateReply(message)
-        self.sendMessage(response)
+        if weChat is False:
+            self.sendMessage(create_tag_freq_table(keyPhrases(message))
+        elif message is 999:
+            global weChat = True
+        else:
+            response = generateReply(message)
+            self.sendMessage(response)
 
     def handleConnected(self):
         print(self.address, 'connected')
@@ -18,5 +27,5 @@ class ChatServer(WebSocket):
 
 
 #print(generateReply("I am not cool."))
-server = SimpleWebSocketServer('', 8000, ChatServer)
+server = SimpleWebSocketServer('', 8080, ChatServer)
 server.serveforever()
