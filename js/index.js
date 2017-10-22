@@ -15,15 +15,25 @@ ws.onerror = function(event) {
     //location.reload();
 }
 
-ws.onmessage = function(event)  { 
-    let message_received = JSON.parse(event.data.replace(/'/g, '"'));
-    if (typeof message_received === 'object') {
-        state.suggestions = message_received;
-        render(status);
+ws.onmessage = function(event)  {
+    if(IsJsonString(event.data)) {
+        let message_received = JSON.parse(event.data);
+        console.log(message_received);
+        state.suggestions.push(Object.keys(message_received));
+        render(state);   
     } else {
-        addBotMessage(message_received);
+        addBotMessage(event.data)
     }
 };
+
+function IsJsonString(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
 
 /**
  * @property {number} currentPage
@@ -32,7 +42,7 @@ let state = {
     question: "",
     messages: [],
     mode: "search",
-    suggestions: {}
+    suggestions: []
 };
 
 function createElem(name, value, className) {

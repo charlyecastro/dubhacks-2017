@@ -2,6 +2,7 @@ from SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 from generate_reply_completed import generateReply
 from tag_data import create_tag_freq_table
 from keyphrases import getPhrases
+import json
 
 # Simple WebSocket for single-user chat bot
 class ChatServer(WebSocket):
@@ -11,7 +12,7 @@ class ChatServer(WebSocket):
         # echo message back to client
         message = self.data
         param = create_tag_freq_table(getPhrases(message))
-        self.sendMessage(str(param))
+        self.sendMessage(json.dumps(param))
         response = generateReply(message)
         self.sendMessage(response)
 
