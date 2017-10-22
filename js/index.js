@@ -4,6 +4,25 @@ const SEARCH_INTERFACE = /** @type {HTMLButtonElement} */(document.querySelector
 const ARTICLE_INTERFACE = /** @type {HTMLButtonElement} */(document.querySelector("#article"));
 const CHAT_INTERFACE = /** @type {HTMLButtonElement} */(document.querySelector("#chat"));
 
+let ws = new WebSocket("ws://localhost:8000");
+
+// Close socket when window closes
+$(window).on('beforeunload', function(){
+    ws.close();
+});
+
+ws.onerror = function(event) {
+    location.reload();
+}
+
+ws.onmessage = function(event)  { 
+    let message_received = event.data;
+    if (typeof message_received === 'object') {
+
+    } else {
+        addBotMessage(message_received);
+    }
+};
 
 /**
  * @property {number} currentPage
@@ -69,7 +88,10 @@ QUESTION_INPUT.addEventListener("input", function() {
 
 SEND_BUTTON.addEventListener("click", function() {
     if(QUESTION_INPUT.value) {
-        state.mode = "chat";
+        if(state.mode !== "chat") {
+            state.mode = "chat";
+            ws.send(999);
+        }
         state.messages.push({from: "user", message: QUESTION_INPUT.value.trim()});
         QUESTION_INPUT.value = "";
         render(state);
