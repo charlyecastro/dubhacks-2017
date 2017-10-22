@@ -37,11 +37,6 @@ def generateReply(message):
     if pos[0][0].lower() in greetings:
         return random.choice(greetings_responses)
 
-    if phrase is not None:
-        return phrase
-    else:
-        return sentiment
-
     # If user said 'You are ... {adjective} ...'
     youAreJJ = findYouAreJJ(pos)   
     if youAreJJ:

@@ -18,5 +18,5 @@ class ChatServer(WebSocket):
 
 
 #print(generateReply("I am not cool."))
-server = SimpleWebSocketServer('', 8000, ChatServer)
+server = SimpleWebSocketServer('', 8080, ChatServer)
 server.serveforever()

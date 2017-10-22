@@ -15,7 +15,7 @@ def close_connection(conn):
 
 def get_question_for_tag(tag):
 	[conn, cursor] = open_connection()
-	cursor.execute("SELECT * FROM fn_GetQuestionsFromTag('%d')" % tag)
+	cursor.execute("SELECT * FROM fn_GetQuestionsFromTag('%s')" % tag)
 	ret_val = []
 	row = cursor.fetchone()
 	while row:
